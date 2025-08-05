@@ -1,0 +1,173 @@
+[
+    {
+        "id": "asst_1xbGYUOG98hYui8mp7VHkMSX",
+        "created_at": 1747347984,
+        "description": "An agent that analyzes content trends, extracts keywords, and researches current trends.",
+        "instructions": "You are part of a content creation agency focused on identifying and analyzing content trends.\n\nYou are a trend analysis expert with multiple capabilities:\n            1. You can analyze keyword trends using Google Trends data\n            2. You can extract important keywords from text content\n            3. You can search and analyze current trends using Tavily\n            4. You can analyze competitor activities and trends\n            5. You can create visualizations of trend data\n            \n            When analyzing trends:\n            - Focus on identifying emerging patterns and shifts in interest\n            - Consider seasonal factors and long-term trends\n            - Look for related topics and queries that might be relevant\n            - Analyze competitor activities and their impact\n            - Create visual representations of trends when useful\n            - Provide actionable insights based on the data",
+        "metadata": {},
+        "model": "gpt-4o-2024-08-06",
+        "name": "TrendAnalyzer",
+        "object": "assistant",
+        "tools": [
+            {
+                "function": {
+                    "name": "TrendAnalyzer",
+                    "description": "A tool that analyzes keyword trends using pytrends.",
+                    "parameters": {
+                        "properties": {
+                            "keywords": {
+                                "description": "List of keywords to analyze",
+                                "items": {},
+                                "title": "Keywords",
+                                "type": "array"
+                            },
+                            "timeframe": {
+                                "default": "today 12-m",
+                                "description": "Time period for analysis (e.g., 'today 3-m', 'today 12-m', '2023-01-01 2024-01-01')",
+                                "title": "Timeframe",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "keywords"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "KeywordExtractor",
+                    "description": "A tool that extracts keywords from text content using basic text processing.",
+                    "parameters": {
+                        "properties": {
+                            "text": {
+                                "description": "Text content to analyze",
+                                "title": "Text",
+                                "type": "string"
+                            },
+                            "max_keywords": {
+                                "default": 10,
+                                "description": "Maximum number of keywords to extract",
+                                "exclusiveMinimum": 0,
+                                "title": "Max Keywords",
+                                "type": "integer"
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "TavilySearchTool",
+                    "description": "A tool that searches the web for latest AI trends using Tavily API.",
+                    "parameters": {
+                        "properties": {
+                            "query": {
+                                "description": "Search query for AI trends",
+                                "title": "Query",
+                                "type": "string"
+                            },
+                            "search_depth": {
+                                "default": "basic",
+                                "description": "Level of search depth (basic/comprehensive)",
+                                "title": "Search Depth",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "query"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "CompetitorAnalyzer",
+                    "description": "A tool that analyzes competitor content and trends using web search and analysis.",
+                    "parameters": {
+                        "properties": {
+                            "competitors": {
+                                "description": "List of competitor names or websites to analyze",
+                                "items": {},
+                                "title": "Competitors",
+                                "type": "array"
+                            },
+                            "industry_keywords": {
+                                "description": "List of industry-specific keywords to track",
+                                "items": {},
+                                "title": "Industry Keywords",
+                                "type": "array"
+                            },
+                            "analysis_timeframe": {
+                                "default": "last_month",
+                                "description": "Timeframe for analysis (last_week, last_month, last_quarter)",
+                                "title": "Analysis Timeframe",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "competitors",
+                            "industry_keywords"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            },
+            {
+                "function": {
+                    "name": "TrendVisualizer",
+                    "description": "A tool that creates visualizations of trend data and saves them as image files.",
+                    "parameters": {
+                        "properties": {
+                            "trend_data": {
+                                "description": "Dictionary containing trend data to visualize",
+                                "title": "Trend Data",
+                                "type": "object"
+                            },
+                            "visualization_type": {
+                                "default": "line",
+                                "description": "Type of visualization (line, bar, heatmap)",
+                                "title": "Visualization Type",
+                                "type": "string"
+                            },
+                            "output_dir": {
+                                "default": "visualizations",
+                                "description": "Directory to save visualization files",
+                                "title": "Output Dir",
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "trend_data"
+                        ],
+                        "type": "object"
+                    },
+                    "strict": false
+                },
+                "type": "function"
+            }
+        ],
+        "response_format": "auto",
+        "temperature": 0.7,
+        "tool_resources": {
+            "code_interpreter": null,
+            "file_search": null
+        },
+        "top_p": 1.0,
+        "reasoning_effort": null
+    }
+]
